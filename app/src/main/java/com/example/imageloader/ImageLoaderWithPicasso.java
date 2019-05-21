@@ -17,6 +17,7 @@ public class ImageLoaderWithPicasso {
         DatabaseHelper helper = new DatabaseHelper(imageView.getContext());
         ModelLinkCount model = helper.getOrCreate(url);
         model.incrementTimesSeen();
+        helper.updateItem(model);
     }
 
     protected void loadPrivate(String url, ImageView imageView) {

@@ -79,6 +79,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
 
     }
+    public int updateItem(ModelLinkCount item){
+        SQLiteDatabase db = this.getReadableDatabase(); //writable ile aynı işi görür ama disk dolu olma durumunda daha iyi
+
+        ContentValues values = new ContentValues();
+        values.put(ImageLoaderContract.ImagesEntry.COLUMN_URL,item.getURL());
+        values.put(ImageLoaderContract.ImagesEntry.COLUMN_TIME_SEEN,item.getTimesSeen());
+
+        int result = db.update(ImageLoaderContract.ImagesEntry.TABLE_NAME,values,
+                ImageLoaderContract.ImagesEntry._ID + " = ?",
+                new String[] { String.valueOf(item.getId()) });
+        db.close();
+        return result;
+
+    }
     public ModelLinkCount getOrCreate(String url) {
 
         SQLiteDatabase db = this.getWritableDatabase();
