@@ -14,6 +14,9 @@ public class ImageLoaderWithPicasso {
         }
         imageLoaderLibrary.loadPrivate(url, imageView);
         //When i add database ,I will put here db operation - adding
+        DatabaseHelper helper = new DatabaseHelper(imageView.getContext());
+        ModelLinkCount model = helper.getOrCreate(url);
+        model.incrementTimesSeen();
     }
 
     protected void loadPrivate(String url, ImageView imageView) {
